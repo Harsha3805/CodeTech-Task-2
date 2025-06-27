@@ -1,0 +1,42 @@
+import pandas as pd
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from statistics import mean
+
+# Step 1: Read and Analyze the Data
+df = pd.read_csv("data.csv")
+average_score = mean(df['Score'])
+top_scorer = df.loc[df['Score'].idxmax()]
+
+# Step 2: Generate PDF Report
+def generate_report(dataframe, avg_score, top_student):
+    file_name = "report.pdf"
+    c = canvas.Canvas(file_name, pagesize=A4)
+    width, height = A4
+
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(50, height - 50, "Student Score Report")
+
+    c.setFont("Helvetica", 12)
+    y = height - 100
+    c.drawString(50, y, "Name")
+    c.drawString(200, y, "Score")
+
+    y -= 20
+    for _, row in dataframe.iterrows():
+        c.drawString(50, y, row["Name"])
+        c.drawString(200, y, str(row["Score"]))
+        y -= 20
+
+    # Summary Section
+    y -= 30
+    c.setFont("Helvetica-Bold", 12)
+    c.drawString(50, y, f"Average Score: {avg_score:.2f}")
+    y -= 20
+    c.drawString(50, y, f"Top Scorer: {top_student['Name']} ({top_student['Score']})")
+
+    c.save()
+    print(f"PDF report '{file_name}' generated successfully!")
+
+# Run report generation
+generate_report(df, average_score, top_scorer)
