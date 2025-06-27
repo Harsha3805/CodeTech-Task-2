@@ -14,15 +14,10 @@ pandas – for reading and analyzing data
 
 fpdf or reportlab – for PDF generation
 
-(Optional) matplotlib – for including charts in the report
 
 📈 Features
 ✅ Reads structured data (CSV, Excel, JSON)
-
 ✅ Performs summary statistics (mean, total, count, etc.)
-
 ✅ Generates clean and professional PDF reports
-
 ✅ Customizable report layout and content
-
 ✅ Easy to extend for batch reporting or different datasets
